@@ -1020,7 +1020,8 @@ def render_terminal(data):
     if data["fix_count"]:
         roasts.append(f'You said {cream("fix")} {orange(str(data["fix_count"]))} times')
     if data["doesnt_work"]:
-        roasts.append(f'You said {cream("doesn\'t work")} {orange(str(data["doesnt_work"]))} times')
+        dw = "doesn" + "'" + "t work"
+        roasts.append(f'You said {cream(dw)} {orange(str(data["doesnt_work"]))} times')
     if data["why_count"]:
         roasts.append(f'You asked {cream("why")} {orange(str(data["why_count"]))} times')
     if data["please_count"]:
@@ -1028,7 +1029,7 @@ def render_terminal(data):
     if data["sorry_count"]:
         roasts.append(f'You {cream("apologized")} to your AI {orange(str(data["sorry_count"]))} times')
     if data["thanks_count"]:
-        roasts.append(f'You said {cream("thanks")} {orange(str(data["thanks_count"]))} times. It can\'t feel gratitude')
+        roasts.append(f'You said {cream("thanks")} {orange(str(data["thanks_count"]))} times. It cannot feel gratitude')
     if data["bro_count"]:
         roasts.append(f'You called your AI {cream("bro/dude")} {orange(str(data["bro_count"]))} times')
     if data["swear_count"]:
