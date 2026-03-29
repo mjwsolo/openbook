@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openbook-ai"
+version = "0.1.0"
+description = "What your AI knows about you — receipts, roasts, and insights from your Claude Code + Codex prompt history"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+keywords = ["claude", "codex", "openai", "anthropic", "ai", "wrapped", "analytics", "developer-tools"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+openbook = "openbook:main"
+
+[project.urls]
+Homepage = "https://github.com/mjwsolo/openbook"
