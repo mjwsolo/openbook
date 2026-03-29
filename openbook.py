@@ -1236,6 +1236,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);padding:
 .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
 .hdr h1{font-size:2rem;font-weight:900;letter-spacing:-.03em;background:linear-gradient(135deg,var(--o),var(--tan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr .meta{font-size:.65rem;color:var(--td);font-family:'JetBrains Mono',monospace;text-align:right}
+.tagline{font-size:.75rem;color:var(--td);font-weight:400;margin-top:2px;font-style:italic}
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 20px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--bdr)}
@@ -1399,7 +1400,7 @@ function showTip(el, text) {
 // ─── CARD ────────────────────────────────────────────────
 ci.innerHTML = `
 <div class="hdr">
-  <h1>openbook</h1>
+  <div><h1>openbook</h1><div class="tagline">a peek inside your vibe code diary</div></div>
   <div class="meta">${D.first_date} — ${D.last_date}</div>
 </div>
 <div class="arch">
