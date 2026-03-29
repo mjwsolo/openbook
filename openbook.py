@@ -731,9 +731,9 @@ def generate_tips(data):
     if fix_rate > 0.03:
         tip(fix_rate * 100,
             "Describe the goal, not the problem",
-            f"You said \"fix\" or \"doesn't work\" {fix_total} times ({fix_rate:.0%} of prompts). "
-            f"Prompts that describe desired behavior (\"this should return X when given Y\") "
-            f"outperform problem descriptions (\"fix this bug\") by producing more targeted solutions.",
+            f"You said 'fix' or 'does not work' {fix_total} times ({fix_rate:.0%} of prompts). "
+            f"Prompts that describe desired behavior ('this should return X when given Y') "
+            f"outperform problem descriptions ('fix this bug') by producing more targeted solutions.",
             "prompting",
             "Anthropic Prompt Engineering Guide — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-direct")
 
@@ -758,8 +758,8 @@ def generate_tips(data):
     if why_rate > 0.05:
         tip(why_rate * 80,
             "Replace 'why' with 'explain step by step'",
-            f"You asked \"why\" {data['why_count']} times. \"Why doesn't this work?\" is ambiguous. "
-            f"\"Explain step by step what this code does and where it diverges from the expected output\" "
+            f"You asked 'why' {data['why_count']} times. 'Why does this not work?' is ambiguous. "
+            f"'Explain step by step what this code does and where it diverges from the expected output' "
             f"gives the model a concrete task. Specific instructions consistently outperform open-ended ones.",
             "prompting",
             "Anthropic Prompt Engineering — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-direct")
@@ -777,7 +777,7 @@ def generate_tips(data):
         pct = round(one_word_rate * 100)
         tip(one_word_rate * 40,
             "Short prompts cost more than they save",
-            f"{pct}% of your prompts are 2 words or less. Vague prompts like \"fix\" or \"continue\" "
+            f"{pct}% of your prompts are 2 words or less. Vague prompts like 'fix' or 'continue' "
             f"often need follow-ups, wasting round-trips. One detailed prompt typically beats three vague ones. "
             f"Include what, why, and constraints upfront.",
             "prompting",
@@ -786,8 +786,8 @@ def generate_tips(data):
     if question_rate > 0.4:
         tip(question_rate * 30,
             "Turn questions into tasks",
-            f"{round(question_rate * 100)}% of your prompts are questions. Questions like \"Can you...?\" "
-            f"or \"How do I...?\" add uncertainty. Direct instructions (\"Write a function that...\") "
+            f"{round(question_rate * 100)}% of your prompts are questions. Questions like 'Can you...?' "
+            f"or 'How do I...?' add uncertainty. Direct instructions ('Write a function that...') "
             f"get more actionable output. Save questions for when you genuinely need explanation.",
             "prompting",
             "Anthropic Prompt Engineering — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-direct")
@@ -816,7 +816,7 @@ def generate_tips(data):
         tip(data["refactor_count"] * 2,
             "Describe architecture upfront",
             f"You asked to refactor {data['refactor_count']} times. Each refactor means the first output "
-            f"missed your intent. Front-loading architecture (\"module with X interface, Y pattern\") "
+            f"missed your intent. Front-loading architecture ('module with X interface, Y pattern') "
             f"gets closer on the first pass. Use CLAUDE.md or AGENTS.md to persist project conventions.",
             "workflow",
             "Anthropic Claude Code CLAUDE.md — docs.anthropic.com/en/docs/claude-code/memory")
@@ -845,7 +845,7 @@ def generate_tips(data):
         if top_repeat[1] > 5 and not top_repeat[0].startswith("/"):
             tip(top_repeat[1] * 2,
                 "Automate your repeated prompts",
-                f"You've sent \"{top_repeat[0][:40]}\" {top_repeat[1]} times. Frequently repeated prompts "
+                f"You sent '{top_repeat[0][:40]}' {top_repeat[1]} times. Frequently repeated prompts "
                 f"can be saved as slash commands (Claude Code) or shortcuts. "
                 f"Put common instructions in your CLAUDE.md or AGENTS.md file instead of typing them each time.",
                 "workflow",
@@ -901,7 +901,7 @@ def generate_tips(data):
             "You're very polite — that's effective",
             f"You said please/thanks/sorry {polite} times. This isn't wasted — "
             f"research shows polite prompts correlate with more careful, detailed responses. "
-            f"Just make sure politeness doesn't replace clarity: \"Please write X\" is better than just \"Please help\".",
+            f"Just make sure politeness does not replace clarity: 'Please write X' is better than just 'Please help'.",
             "style",
             "Anthropic Prompt Engineering — docs.anthropic.com/en/docs/build-with-claude/prompt-engineering")
 
@@ -909,7 +909,7 @@ def generate_tips(data):
         tip(swear_rate * 60,
             "Frustration in prompts can reduce quality",
             f"You expressed frustration {data['swear_count']} times. While venting is human, "
-            f"frustrated prompts tend to be vague (\"this is broken, fix it\"). "
+            f"frustrated prompts tend to be vague ('this is broken, fix it'). "
             f"When stuck, try describing the expected vs actual behavior calmly — it gets better results.",
             "style",
             "Cognitive load theory — frustration impairs clear communication (Sweller, 1988)")
@@ -919,7 +919,7 @@ def generate_tips(data):
             "Your casual style works — keep the clarity",
             f"You've used casual language (bro/dude) {data['bro_count']} times. "
             f"Casual prompting is fine — models handle informal language well. "
-            f"Just ensure the core instruction is clear. \"Bro, refactor this\" works if the scope is obvious.",
+            f"Just ensure the core instruction is clear. 'Bro, refactor this' works if the scope is obvious.",
             "style",
             "Anthropic — models are robust to tone variation in prompts")
 
@@ -1660,7 +1660,8 @@ def ask_telemetry_consent():
     print()
     print(f"  {dim('  openbook can share anonymous stats to power:')}")
     print(f"  {dim('  • Leaderboards — see how you rank against other devs')}")
-    print(f"  {dim('  • Percentiles — \"more prolific than 87% of users\"')}")
+    pct_example = '"more prolific than 87% of users"'
+    print(f"  {dim('  • Percentiles — ' + pct_example)}")
     print(f"  {dim('  • Trends — how the community codes with AI over time')}")
     print(f"  {dim('  • Claude vs Codex — aggregate comparison across tools')}")
     print()
