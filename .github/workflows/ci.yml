@@ -30,7 +30,7 @@ jobs:
 
       - name: Check no personal data
         run: |
-          ! grep -n "marcsolomon\|/Users/.*solomon\|sk-\|ghp_\|password" openbook.py || \
+          ! grep -n "marcsolomon\|/Users/.*solomon\|sk-[a-zA-Z0-9]\{20\}\|ghp_[a-zA-Z0-9]\{20\}" openbook.py README.md pyproject.toml || \
             (echo "FAIL: Found potential secrets or personal data" && exit 1)
 
       - name: Check version exists

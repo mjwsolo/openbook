@@ -6,4 +6,4 @@ dist/
 build/
 .DS_Store
 tests/
-api/.wrangler/
+api/

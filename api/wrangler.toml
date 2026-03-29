@@ -1,8 +1,0 @@
-name = "openbook-api"
-main = "worker.js"
-compatibility_date = "2024-12-01"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "openbook-telemetry"
-database_id = "2c656ba7-391a-4915-9efe-84f9a47a0038"

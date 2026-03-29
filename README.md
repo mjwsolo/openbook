@@ -1,10 +1,27 @@
-# openbook
+<p align="center">
+  <h1 align="center">openbook</h1>
+  <p align="center"><strong>what your AI knows about you.</strong></p>
+</p>
 
-**what your AI knows about you.**
+<p align="center">
+  <a href="https://github.com/mjwsolo/openbook/actions"><img src="https://img.shields.io/github/actions/workflow/status/mjwsolo/openbook/ci.yml?branch=main&label=build" alt="Build"></a>
+  <a href="https://github.com/mjwsolo/openbook/releases"><img src="https://img.shields.io/github/v/release/mjwsolo/openbook?label=release&color=D97757" alt="Release"></a>
+  <a href="https://github.com/mjwsolo/openbook/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
+  <a href="https://github.com/mjwsolo/openbook/stargazers"><img src="https://img.shields.io/github/stars/mjwsolo/openbook?style=flat&color=D97757" alt="Stars"></a>
+  <img src="https://img.shields.io/badge/python-3.8+-blue" alt="Python">
+  <img src="https://img.shields.io/badge/dependencies-zero-green" alt="Zero deps">
+</p>
 
-One command. Installs, runs, opens your AI personality report.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mjwsolo/openbook/main/assets/screenshot.png" alt="openbook screenshot" width="680">
+</p>
 
-Works with **Claude Code** and **OpenAI Codex**.
+<p align="center">
+  One command. Installs, runs, opens your AI personality report.<br>
+  Works with <strong>Claude Code</strong> and <strong>OpenAI Codex</strong>.
+</p>
+
+---
 
 ## Install
 
