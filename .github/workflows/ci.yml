@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.8", "3.12", "3.13"]
 
     steps:
@@ -29,9 +29,17 @@ jobs:
         run: python -c "from openbook import analyze_prompts, determine_archetype, generate_tips, generate_html; print('imports OK')"
 
       - name: Check no personal data
-        run: |
-          ! grep -n "marcsolomon\|/Users/.*solomon\|sk-[a-zA-Z0-9]\{20\}\|ghp_[a-zA-Z0-9]\{20\}" openbook.py README.md pyproject.toml || \
-            (echo "FAIL: Found potential secrets or personal data" && exit 1)
+        run: python -c "
+import re, sys
+for f in ['openbook.py','README.md','pyproject.toml']:
+    text=open(f).read()
+    for pat in [r'marcsolomon',r'/Users/.*solomon',r'sk-[a-zA-Z0-9]{20}',r'ghp_[a-zA-Z0-9]{20}']:
+        m=re.search(pat,text)
+        if m:
+            print(f'FAIL:{f} contains {m.group()}')
+            sys.exit(1)
+print('No personal data found')
+"
 
       - name: Check version exists
         run: python -c "from openbook import __version__; print(f'v{__version__}')"
