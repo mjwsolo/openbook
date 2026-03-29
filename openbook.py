@@ -1857,7 +1857,8 @@ def main():
         output_path.write_text(generate_html(data), encoding="utf-8")
         print(f"  {dim('Opening browser...')}")
         print()
-        webbrowser.open(f"file://{output_path}")
+        # Use str() on Windows — webbrowser.open handles local paths cross-platform
+        webbrowser.open(str(output_path))
 
 
 if __name__ == "__main__":

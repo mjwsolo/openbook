@@ -28,18 +28,18 @@ jobs:
       - name: Check imports work
         run: python -c "from openbook import analyze_prompts, determine_archetype, generate_tips, generate_html; print('imports OK')"
 
-      - name: Check no personal data
-        run: python -c "
-import re, sys
-for f in ['openbook.py','README.md','pyproject.toml']:
-    text=open(f).read()
-    for pat in [r'marcsolomon',r'/Users/.*solomon',r'sk-[a-zA-Z0-9]{20}',r'ghp_[a-zA-Z0-9]{20}']:
-        m=re.search(pat,text)
-        if m:
-            print(f'FAIL:{f} contains {m.group()}')
-            sys.exit(1)
-print('No personal data found')
-"
-
       - name: Check version exists
-        run: python -c "from openbook import __version__; print(f'v{__version__}')"
+        run: python -c "from openbook import __version__; print(__version__)"
+
+      - name: Check no personal data
+        shell: python
+        run: |
+          import re, sys
+          for f in ["openbook.py", "README.md", "pyproject.toml"]:
+              text = open(f).read()
+              for pat in [r"marcsolomon", r"/Users/.*solomon", r"sk-[a-zA-Z0-9]{20}", r"ghp_[a-zA-Z0-9]{20}"]:
+                  m = re.search(pat, text)
+                  if m:
+                      print("FAIL: " + f + " contains " + m.group())
+                      sys.exit(1)
+          print("No personal data found")
