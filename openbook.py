@@ -664,7 +664,7 @@ def determine_archetype(data):
         score = (data["refactor_count"] * 5) + (data["too_much"] * 4) + (change_rate * 100)
         patterns.append((score,
             "rewriting hello world for the 5th time",
-            f"{data['refactor_count']} refactors, said 'too much' {data['too_much']} times. "
+            f"{data['refactor_count']} refactors{', said too much ' + str(data['too_much']) + ' times' if data['too_much'] > 0 else ''}. "
             f"the code wasn't bad. you just got bored."))
 
     # The therapist: very long prompts dominate

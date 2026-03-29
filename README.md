@@ -4,12 +4,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mjwsolo/openbook/actions"><img src="https://img.shields.io/github/actions/workflow/status/mjwsolo/openbook/ci.yml?branch=main&label=build" alt="Build"></a>
-  <a href="https://github.com/mjwsolo/openbook/releases"><img src="https://img.shields.io/github/v/release/mjwsolo/openbook?label=release&color=D97757" alt="Release"></a>
-  <a href="https://github.com/mjwsolo/openbook/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
-  <a href="https://github.com/mjwsolo/openbook/stargazers"><img src="https://img.shields.io/github/stars/mjwsolo/openbook?style=flat&color=D97757" alt="Stars"></a>
-  <img src="https://img.shields.io/badge/python-3.8+-blue" alt="Python">
-  <img src="https://img.shields.io/badge/dependencies-zero-green" alt="Zero deps">
+  <a href="https://github.com/mjwsolo/openbook/actions"><img src="https://img.shields.io/github/actions/workflow/status/mjwsolo/openbook/ci.yml?branch=main&style=flat-square" alt="Build"></a>
+  <a href="https://github.com/mjwsolo/openbook/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-D97757?style=flat-square" alt="License"></a>
+  <a href="https://github.com/mjwsolo/openbook/stargazers"><img src="https://img.shields.io/github/stars/mjwsolo/openbook?style=flat-square&color=D97757" alt="Stars"></a>
 </p>
 
 <p align="center">
