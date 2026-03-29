@@ -1007,7 +1007,19 @@ def render_terminal(data):
     # Archetype
     empty()
     line(f"  You are... {bold(cream(data['archetype']['name']))}", "center")
-    line(dim(data['archetype']['desc']), "center")
+    # Word wrap the description
+    desc = data['archetype']['desc']
+    desc_words = desc.split()
+    desc_line = ""
+    max_desc = w - 6
+    for word in desc_words:
+        if len(desc_line) + len(word) + 1 > max_desc:
+            line(dim(desc_line), "center")
+            desc_line = word
+        else:
+            desc_line = (desc_line + " " + word).strip()
+    if desc_line:
+        line(dim(desc_line), "center")
     empty()
     sep()
 
@@ -1149,6 +1161,22 @@ def render_terminal(data):
     line(f"  {dim('0h')}  {orange(spark)}  {dim('23h')}", "center")
     line(f"  Peak: {cream(data['peak_hour'])}   Busiest: {cream(data['busiest_day']+'s')}", "center")
     empty()
+
+    # Day of week distribution
+    if data.get("day_of_week_counts"):
+        dow = data["day_of_week_counts"]
+        days_short = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        max_d = max(dow) if dow else 1
+        bar_max = w - 20
+        sep()
+        empty()
+        line(orange("BY DAY"))
+        empty()
+        for i, count in enumerate(dow):
+            bar_len = max(1, int((count / max_d) * bar_max))
+            bar = orange("█" * bar_len) + dimbar("░" * (bar_max - bar_len))
+            line(f" {tan(days_short[i])} {bar} {dim(str(count))}")
+        empty()
 
     # Tips
     tips = data.get("tips", [])
@@ -1386,6 +1414,7 @@ ci.innerHTML = `
   <div class="st"><div class="v">${D.peak_hour}</div><div class="l">Peak Hour</div></div>
   <div class="st"><div class="v">${D.max_streak||0}</div><div class="l">Day Streak</div></div>
   <div class="st"><div class="v">~$${D.est_cost||0}</div><div class="l">Est. Cost</div></div>
+  <div class="st"><div class="v">${D.sessions||0}</div><div class="l">Sessions</div></div>
 </div>`;
 
 // Receipts (top 6 for card)
@@ -1609,6 +1638,8 @@ function screenshot() {
   const s = document.createElement('script');
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
   s.onload = () => {
+    // Fix gradient text not rendering in html2canvas
+    document.querySelectorAll('.hdr h1').forEach(el=>{el.style.background='none';el.style.webkitTextFillColor='#D97757';el.style.color='#D97757'});
     html2canvas(document.getElementById('card'), {backgroundColor:'#1a1410',scale:2}).then(canvas=>{
       const a=document.createElement('a');a.download='openbook.png';a.href=canvas.toDataURL('image/png');a.click();
     });
