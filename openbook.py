@@ -1717,12 +1717,12 @@ def ask_telemetry_consent():
     print(f"  {dim('  You can opt out anytime:  openbook --opt-out')}")
     print()
     if not sys.stdin.isatty():
-        return False
+        return None
     try:
         answer = input(f"  {orange('  Share? (y/n): ')}").strip().lower()
     except (EOFError, KeyboardInterrupt):
         print()
-        return False
+        return None
     return answer in ("y", "yes")
 
 
@@ -1794,6 +1794,9 @@ def handle_telemetry(data):
     # First run: ask for consent
     if "telemetry" not in config:
         consented = ask_telemetry_consent()
+        if consented is None:
+            # Non-interactive — don't save, ask again next time
+            return
         config["telemetry"] = consented
         config["id"] = get_anonymous_id()
         save_config(config)
