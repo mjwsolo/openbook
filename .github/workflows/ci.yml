@@ -36,7 +36,7 @@ jobs:
         run: |
           import re, sys
           for f in ["openbook.py", "README.md", "pyproject.toml"]:
-              text = open(f).read()
+              text = open(f, encoding="utf-8").read()
               for pat in [r"marcsolomon", r"/Users/.*solomon", r"sk-[a-zA-Z0-9]{20}", r"ghp_[a-zA-Z0-9]{20}"]:
                   m = re.search(pat, text)
                   if m:
