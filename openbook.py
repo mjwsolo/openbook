@@ -1224,9 +1224,9 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--o:#D97757;--ol:#E8956F;--od:#A35A3A;--tan:#C4A882;--cr:#F5E6D3;--bg:#1a1410;--card:#231e18;--bdr:#3a3028;--t:#e8ddd0;--td:#9a8b7a;--tb:#fff8f0}
-body.codex{--o:#10A37F;--ol:#74AA9C;--od:#0B7A5E;--tan:#7ECBB4;--cr:#D4F5EB;--bg:#0d1410;--card:#131e18;--bdr:#1e3028;--t:#d0e8dd;--td:#7a9a8b;--tb:#f0fff8}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);padding:32px 20px;display:flex;flex-direction:column;align-items:center;background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(217,119,87,.12),transparent)}
+:root{--o:#D97757;--ol:#E8956F;--od:#A35A3A;--tan:#C4A882;--cr:#F5E6D3;--bg:#1a1410;--card:#231e18;--bdr:#3a3028;--t:#e8ddd0;--td:#9a8b7a;--tb:#fff8f0;--hm0:rgba(196,168,130,.06);--hm1:rgba(217,119,87,.25);--hm2:rgba(217,119,87,.45);--hm3:rgba(217,119,87,.7);--hm4:rgba(217,119,87,1)}
+body.codex{--o:#38bdf8;--ol:#7dd3fc;--od:#0284c7;--tan:#94a3b8;--cr:#e2e8f0;--bg:#0f172a;--card:#1e293b;--bdr:#334155;--t:#cbd5e1;--td:#64748b;--tb:#f8fafc;--hm0:rgba(100,116,139,.06);--hm1:rgba(56,189,248,.25);--hm2:rgba(56,189,248,.45);--hm3:rgba(56,189,248,.7);--hm4:rgba(56,189,248,1)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);padding:32px 20px;display:flex;flex-direction:column;align-items:center;background-image:radial-gradient(ellipse 80% 50% at 50% -20%,color-mix(in srgb,var(--o) 12%,transparent),transparent)}
 .wrap{max-width:720px;width:100%}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:36px;position:relative;overflow:hidden;margin-bottom:24px}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--o),transparent)}
@@ -1252,8 +1252,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);padding:
 
 /* Receipts */
 .receipts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:24px}
-.rc{background:rgba(217,119,87,.06);border:1px solid rgba(217,119,87,.1);border-radius:10px;padding:10px 12px;text-align:center;transition:all .2s;cursor:default}
-.rc:hover{background:rgba(217,119,87,.12);border-color:var(--o);transform:scale(1.03)}
+.rc{background:color-mix(in srgb,var(--o) 6%,transparent);border:1px solid color-mix(in srgb,var(--o) 10%,transparent);border-radius:10px;padding:10px 12px;text-align:center;transition:all .2s;cursor:default}
+.rc:hover{background:color-mix(in srgb,var(--o) 12%,transparent);border-color:var(--o);transform:scale(1.03)}
 .rc .n{font-size:1.3rem;font-weight:800;color:var(--o);font-family:'JetBrains Mono',monospace}
 .rc .d{font-size:.68rem;color:var(--td);margin-top:2px;line-height:1.3}
 .rc .d b{color:var(--cr);font-weight:600}
@@ -1345,7 +1345,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);padding:
 .theme-btn:hover{opacity:1;transform:scale(1.1)}
 .theme-btn.active{opacity:1;border-color:var(--t)}
 .theme-btn.claude{background:#D97757}
-.theme-btn.codex{background:#10A37F}
+.theme-btn.codex{background:#38bdf8}
 .theme-btn.claude{background:#D97757}
 
 /* Tooltip */
@@ -1385,7 +1385,12 @@ const D = $$DATA$$;
 const ci = document.getElementById('card-inner');
 const deep = document.getElementById('deep');
 const tt = document.getElementById('tt');
-const palette = [[217,119,87],[232,149,111],[196,168,130],[245,230,211],[163,90,58],[200,140,100]];
+const palettes = {
+  claude: [[217,119,87],[232,149,111],[196,168,130],[245,230,211],[163,90,58],[200,140,100]],
+  codex: [[56,189,248],[125,211,252],[148,163,184],[226,232,240],[2,132,199],[100,160,220]]
+};
+function getPalette() { return document.body.classList.contains('codex') ? palettes.codex : palettes.claude; }
+let palette = getPalette();
 
 // ─── HTML escape for user content ────────────────────────
 function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
@@ -1467,7 +1472,7 @@ if (D.heatmap_weeks && D.heatmap_weeks.length) {
         h+='<div class="hm-cell" style="background:transparent;visibility:hidden"></div>';
       } else {
         const r=day.count/maxC;
-        let bg=day.count===0?'rgba(196,168,130,.06)':r<.25?'rgba(217,119,87,.25)':r<.5?'rgba(217,119,87,.45)':r<.75?'rgba(217,119,87,.7)':'rgba(217,119,87,1)';
+        let bg=day.count===0?'var(--hm0)':r<.25?'var(--hm1)':r<.5?'var(--hm2)':r<.75?'var(--hm3)':'var(--hm4)';
         h+=`<div class="hm-cell" style="background:${bg}" data-tip="${day.date}: ${day.count} prompts"></div>`;
       }
     });
@@ -1628,6 +1633,13 @@ function setTheme(theme) {
   document.body.classList.toggle('codex', theme === 'codex');
   document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.theme-btn.${theme}`).classList.add('active');
+  palette = getPalette();
+  document.querySelectorAll('.cloud span').forEach((span,i) => {
+    const col = palette[i%palette.length];
+    const size = parseFloat(span.style.fontSize);
+    const op = 0.5+(size/72)*0.5;
+    span.style.color = `rgba(${col[0]},${col[1]},${col[2]},${op})`;
+  });
 }
 
 // ─── Actions ─────────────────────────────────────────────
@@ -1640,8 +1652,11 @@ function screenshot() {
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
   s.onload = () => {
     // Fix gradient text not rendering in html2canvas
-    document.querySelectorAll('.hdr h1').forEach(el=>{el.style.background='none';el.style.webkitTextFillColor='#D97757';el.style.color='#D97757'});
-    html2canvas(document.getElementById('card'), {backgroundColor:'#1a1410',scale:2}).then(canvas=>{
+    const isCodex=document.body.classList.contains('codex');
+    const accentColor=isCodex?'#38bdf8':'#D97757';
+    const bgColor=isCodex?'#0f172a':'#1a1410';
+    document.querySelectorAll('.hdr h1').forEach(el=>{el.style.background='none';el.style.webkitTextFillColor=accentColor;el.style.color=accentColor});
+    html2canvas(document.getElementById('card'), {backgroundColor:bgColor,scale:2}).then(canvas=>{
       const a=document.createElement('a');a.download='openbook.png';a.href=canvas.toDataURL('image/png');a.click();
     });
   };
@@ -1701,8 +1716,10 @@ def ask_telemetry_consent():
     print(f"  {dim('  What we never send:  prompt text, project names, file paths, code')}")
     print(f"  {dim('  You can opt out anytime:  openbook --opt-out')}")
     print()
+    if not sys.stdin.isatty():
+        return False
     try:
-        answer = input(f"  {dim('  Share? (y/n): ')}").strip().lower()
+        answer = input(f"  {orange('  Share? (y/n): ')}").strip().lower()
     except (EOFError, KeyboardInterrupt):
         print()
         return False
@@ -1855,10 +1872,13 @@ def main():
     if not terminal_only:
         output_path = Path(tempfile.gettempdir()) / "openbook.html"
         output_path.write_text(generate_html(data), encoding="utf-8")
-        print(f"  {dim('Opening browser...')}")
+        try:
+            webbrowser.open(str(output_path))
+            print(f"  {dim('Opening browser...')}")
+        except Exception:
+            print(f"  {dim('Could not open browser automatically.')}")
+        print(f"  {dim('Report saved to: ' + str(output_path))}")
         print()
-        # Use str() on Windows — webbrowser.open handles local paths cross-platform
-        webbrowser.open(str(output_path))
 
 
 if __name__ == "__main__":
