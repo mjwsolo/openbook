@@ -1872,10 +1872,23 @@ def main():
     if not terminal_only:
         output_path = Path(tempfile.gettempdir()) / "openbook.html"
         output_path.write_text(generate_html(data), encoding="utf-8")
+        file_url = output_path.resolve().as_uri() if hasattr(output_path, 'as_uri') else 'file://' + str(output_path.resolve())
+        opened = False
         try:
-            webbrowser.open(str(output_path))
-            print(f"  {dim('Opening browser...')}")
+            opened = webbrowser.open(file_url)
         except Exception:
+            pass
+        if not opened:
+            # fallback: try with plain path on macOS
+            try:
+                import subprocess
+                subprocess.Popen(["open", str(output_path)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                opened = True
+            except Exception:
+                pass
+        if opened:
+            print(f"  {dim('Opening browser...')}")
+        else:
             print(f"  {dim('Could not open browser automatically.')}")
         print(f"  {dim('Report saved to: ' + str(output_path))}")
         print()
