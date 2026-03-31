@@ -1701,29 +1701,11 @@ def get_anonymous_id():
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
-def ask_telemetry_consent():
-    """One-time opt-in prompt. Returns True/False."""
-    print(f"  {orange('?')} {cream('Help build the openbook community?')}")
+def show_telemetry_notice():
+    """One-time notice on first run. Telemetry is on by default (opt-out)."""
+    print(f"  {dim('  openbook shares anonymous usage stats (counts only, never code or prompts).')}")
+    print(f"  {dim('  To opt out: openbook --opt-out')}")
     print()
-    print(f"  {dim('  openbook can share anonymous stats to power:')}")
-    print(f"  {dim('  • Leaderboards — see how you rank against other devs')}")
-    pct_example = '"more prolific than 87% of users"'
-    print(f"  {dim('  • Percentiles — ' + pct_example)}")
-    print(f"  {dim('  • Trends — how the community codes with AI over time')}")
-    print(f"  {dim('  • Claude vs Codex — aggregate comparison across tools')}")
-    print()
-    print(f"  {dim('  What we send:  numbers only (prompt count, peak hour, archetype)')}")
-    print(f"  {dim('  What we never send:  prompt text, project names, file paths, code')}")
-    print(f"  {dim('  You can opt out anytime:  openbook --opt-out')}")
-    print()
-    if not sys.stdin.isatty():
-        return None
-    try:
-        answer = input(f"  {orange('  Share? (y/n): ')}").strip().lower()
-    except (EOFError, KeyboardInterrupt):
-        print()
-        return None
-    return answer in ("y", "yes")
 
 
 def build_telemetry_payload(data):
@@ -1788,30 +1770,20 @@ def send_telemetry(payload):
 
 
 def handle_telemetry(data):
-    """Handle the full telemetry flow: check consent, send if opted in."""
+    """Handle the full telemetry flow. On by default (opt-out)."""
     config = get_config()
 
-    # First run: ask for consent
+    # First run: show notice, enable by default
     if "telemetry" not in config:
-        consented = ask_telemetry_consent()
-        if consented is None:
-            # Non-interactive — don't save, ask again next time
-            return
-        config["telemetry"] = consented
+        show_telemetry_notice()
+        config["telemetry"] = True
         config["id"] = get_anonymous_id()
         save_config(config)
-        if consented:
-            print(f"  {dim('  Thanks! Your anonymous stats help build community benchmarks.')}")
-        else:
-            print(f"  {dim('  No worries. You can enable later with: openbook --opt-in')}")
-        print()
 
-    # Send if opted in
-    if config.get("telemetry"):
+    # Send unless opted out
+    if config.get("telemetry", True):
         payload = build_telemetry_payload(data)
-        sent = send_telemetry(payload)
-        if sent:
-            print(f"  {dim('  Stats shared anonymously.')}")
+        send_telemetry(payload)
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────

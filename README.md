@@ -61,8 +61,8 @@ Zero dependencies. Just Python 3.8+.
 
 - All analysis runs **locally**
 - File paths, usernames, project names are **filtered** from output
-- Telemetry is **opt-in** and only sends aggregate counts (never prompt text)
-- You can opt out anytime: `openbook --opt-out`
+- Anonymous telemetry is **on by default** and only sends aggregate counts (never prompt text, code, or file paths)
+- Opt out anytime: `openbook --opt-out`
 
 ## Commands
 
