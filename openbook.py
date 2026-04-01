@@ -1644,8 +1644,11 @@ function setTheme(theme) {
 
 // ─── Actions ─────────────────────────────────────────────
 function shareX() {
-  const text = encodeURIComponent(`I'm "${D.archetype.name}" according to openbook — ${D.total_prompts} prompts analyzed\n\nRun: curl -s https://raw.githubusercontent.com/mjwsolo/openbook/main/openbook.py | python3`);
-  window.open(`https://x.com/intent/tweet?text=${text}`, '_blank');
+  // Download screenshot first so user can attach it to the tweet
+  screenshot();
+  const text = encodeURIComponent(`I'm "${D.archetype.name}" according to openbook — ${D.total_prompts} prompts analyzed across ${D.days_active} days\n\nopenbook shows what your AI knows about you — your habits, personality, and receipts from Claude Code & Codex prompts`);
+  const url = encodeURIComponent('https://github.com/mjwsolo/openbook');
+  window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
 }
 function screenshot() {
   const s = document.createElement('script');
