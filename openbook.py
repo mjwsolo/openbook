@@ -1644,9 +1644,12 @@ function setTheme(theme) {
 
 // ─── Actions ─────────────────────────────────────────────
 function shareX() {
-  // Download screenshot first so user can attach it to the tweet
-  screenshot();
-  const text = encodeURIComponent(`I'm "${D.archetype.name}" according to openbook — ${D.total_prompts} prompts analyzed across ${D.days_active} days\n\nopenbook shows what your AI knows about you — your habits, personality, and receipts from Claude Code & Codex prompts`);
+  const receipts = [];
+  if (D.bro_count > 0) receipts.push(`called my AI "bro" ${D.bro_count} times`);
+  if (D.swear_count > 0) receipts.push(`swore at it ${D.swear_count} times`);
+  if (D.late_night > 0) receipts.push(`${D.late_night} prompts after midnight`);
+  const receiptLine = receipts.length ? `\n\n${receipts.slice(0,2).join(', ')}` : '';
+  const text = encodeURIComponent(`${D.total_prompts} prompts. ${D.days_active} days. verdict: "${D.archetype.name}"${receiptLine}\n\nrun openbook on your prompts 👇`);
   const url = encodeURIComponent('https://github.com/mjwsolo/openbook');
   window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
 }
