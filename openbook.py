@@ -1649,7 +1649,7 @@ function shareX() {
   if (D.swear_count > 0) receipts.push(`swore at it ${D.swear_count} times`);
   if (D.late_night > 0) receipts.push(`${D.late_night} prompts after midnight`);
   const receiptLine = receipts.length ? `\n\n${receipts.slice(0,2).join(', ')}` : '';
-  const text = encodeURIComponent(`${D.total_prompts} prompts. ${D.days_active} days. verdict: "${D.archetype.name}"${receiptLine}\n\nrun openbook on your prompts 👇`);
+  const text = encodeURIComponent(`${D.total_prompts} prompts. ${D.days_active} days. verdict: "${D.archetype.name}"${receiptLine}\n\nsee what your AI really knows about you 👇`);
   const url = encodeURIComponent('https://github.com/mjwsolo/openbook');
   window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
 }
