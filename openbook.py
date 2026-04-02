@@ -1721,7 +1721,7 @@ def build_telemetry_payload(data):
         "v": __version__,
         "os": sys.platform,
         "py": platform.python_version(),
-        "tz_offset": round((datetime.now() - datetime.utcnow()).total_seconds() / 3600),
+        "tz_offset": round(datetime.now().astimezone().utcoffset().total_seconds() / 3600),
         "tools": [s.lower().replace(" ", "") for s in data.get("tools", [])],
         "prompts": total,
         "days": data["days_active"],
