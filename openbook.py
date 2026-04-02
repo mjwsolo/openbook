@@ -992,14 +992,12 @@ def render_terminal(data):
 
     # Big stats
     empty()
-    stat1 = f"{orange(str(data['total_prompts']))} prompts"
-    stat2 = f"{tan(str(data['days_active']))} days"
-    stat3 = f"{cream(str(data['prompts_per_day']))}/day"
-    stat4 = f"peak: {cream(data['busiest_day'] + 's')}"
-    stat5 = f"{orange(str(data.get('max_streak', 0)))} day streak"
-    stat6 = f"~{cream('$' + str(data.get('est_cost', 0)))}"
-    line(f"{stat1}   {stat2}   {stat3}   {stat4}   {stat5}", "center")
-    line(f"est. cost: {stat6}   tokens: {dim(str(data.get('est_input_tokens', 0)) + ' in / ' + str(data.get('est_output_tokens', 0)) + ' out')}", "center")
+    stat1 = f"{orange(str(data['total_prompts']))} prompts   {tan(str(data['days_active']))} days   {cream(str(data['prompts_per_day']))}/day"
+    stat2 = f"peak: {cream(data['busiest_day'] + 's')}   {orange(str(data.get('max_streak', 0)))} day streak"
+    stat3 = f"est. cost: ~{cream('$' + str(data.get('est_cost', 0)))}   tokens: {dim(str(data.get('est_input_tokens', 0)) + ' in / ' + str(data.get('est_output_tokens', 0)) + ' out')}"
+    line(stat1, "center")
+    line(stat2, "center")
+    line(stat3, "center")
     line(dim(f"{data['first_date']} → {data['last_date']}"), "center")
     empty()
     sep()
@@ -1649,7 +1647,7 @@ function shareX() {
   if (D.late_night > 0) receipts.push(`${D.late_night} prompts after midnight`);
   if (D.question_count > 0) receipts.push(`asked "why?" ${D.question_count} times`);
   const receiptLine = receipts.length ? `\n\n${receipts.slice(0,2).join(', ')}` : '';
-  const text = encodeURIComponent(`${D.total_prompts} prompts. ${D.days_active} days. verdict: "${D.archetype.name}"${receiptLine}\n\nsee what your AI really knows about you 👇`);
+  const text = encodeURIComponent(`${D.total_prompts} prompts. ${D.days_active} days. verdict: "${D.archetype.name}"${receiptLine}\n\nsee what your coding assistant really knows about you 👇`);
   const url = encodeURIComponent('https://github.com/mjwsolo/openbook');
   window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
 }
